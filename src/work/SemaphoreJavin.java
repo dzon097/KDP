@@ -1,8 +1,8 @@
 package work;
 
-import java.sql.Timestamp;
+
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
+
 
 public class SemaphoreJavin {
 	public static void main(String[] arg) {
@@ -26,6 +26,7 @@ public class SemaphoreJavin {
 		//Postoje imetode koje specificira da li je operacija umanjivanja interne promenjive uspela
 		boolean b =s.tryAcquire();
 		b= s.tryAcquire(2);
+		if(b);
 		
 		//metoda signal na semaforu
 		s.release();

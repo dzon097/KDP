@@ -4,6 +4,6 @@ public class Direction {
 	public int wait;
 	public int cross;
 	public int ahead;
-	public Direction() {wait=cross=ahead=0;}
+	public Direction() {wait=cross=ahead=0;} 
 
 }

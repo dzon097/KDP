@@ -11,7 +11,7 @@ public class North extends Car implements Runnable {
 
 	@Override
 	public void run() {
-		starting();
+		starting(); 
 		
 		synchronized(bridge) {
 			bridge.north.wait++;

@@ -24,6 +24,7 @@ public class South extends Car implements Runnable {
 				}
 			bridge.south.wait--;
 			bridge.south.cross++;
+			
 			if(bridge.north.wait>0) bridge.north.ahead++;
 		}
 		

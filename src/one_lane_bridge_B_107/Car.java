@@ -5,6 +5,7 @@ public abstract class Car {
 	Bridge bridge;
 	
 	public Car(int id, Bridge bridge) {
+		
 		this.id=id;
 		this.bridge=bridge;
 	}

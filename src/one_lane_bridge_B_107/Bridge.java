@@ -6,6 +6,7 @@ public class Bridge {
 	public Direction south;
 
 	public Bridge() {
+		
 		north = new Direction();
 		south = new Direction();
 	}

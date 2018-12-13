@@ -15,6 +15,7 @@ public class OneLaneBridgeTest {
 		
 		for(int i=0; i<n; i++) {
 			south[i].start();
+			
 			north[i].start();
 		}
 	}

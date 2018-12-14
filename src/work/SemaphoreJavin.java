@@ -1,8 +1,6 @@
 package work;
 
-
 import java.util.concurrent.Semaphore;
-
 
 public class SemaphoreJavin {
 	public static void main(String[] arg) {

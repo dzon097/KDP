@@ -11,25 +11,26 @@ public class ExecutorServer extends Server {
 
 	public ExecutorServer(int numOfThreads, String protocol, int port) {
 		super(protocol, port);
-		pool = new Executors.newFixedThreadPool(numOfThreads);
+		pool = Executors.newFixedThreadPool(numOfThreads); // genericki se stvaga bazen niti koje imam na raspolaganju
+															// pri konverzaciji, njima preusmeravam obradu zahteva
 	}
 
 	@Override
 	public void processRequest(Socket client) {
 		pool.execute(new WorkingThread(0, client, protocol));
 	}
-	
+
 	public void stop() {
 		super.stop();
-		
+
 		pool.shutdown();
 		try {
-			if(!pool.awaitTermination(60, TimeUnit.SECONDS)) {
+			if (!pool.awaitTermination(60, TimeUnit.SECONDS)) {
 				pool.shutdownNow();
-				if(!pool.awaitTermination(60, TimeUnit.SECONDS))
+				if (!pool.awaitTermination(60, TimeUnit.SECONDS))
 					System.err.println("Pool did not terminate");
 			}
-		} catch(InterruptedException e) {
+		} catch (InterruptedException e) {
 			pool.shutdownNow();
 			Thread.currentThread().interrupt();
 		}

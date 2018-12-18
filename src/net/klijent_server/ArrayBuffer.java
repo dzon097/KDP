@@ -1,52 +1,68 @@
 package net.klijent_server;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ArrayBuffer<T> implements Buffer<T> {
 	private int capacity;
 	protected List<T> buffer;
-	
+
 	public ArrayBuffer() {
 		this(MAXBUFFERSIZE);
 	}
-	
+
 	public ArrayBuffer(int cap) {
-		if(cap>0 && cap <= MAXBUFFERSIZE)
-			capacity=cap;
+		if (cap > 0 && cap <= MAXBUFFERSIZE)
+			capacity = cap;
 		else
-			capacity=MAXBUFFERSIZE;
-		buffer= new ArrayList<T>();
+			capacity = MAXBUFFERSIZE;
+		buffer = new ArrayList<T>();
 	}
 
 	@Override
-	public T get() {
-		// TODO Auto-generated method stub
-		return null;
+	public synchronized T get() {
+		while (buffer.size() == 0)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		T data = buffer.remove(0);
+		notifyAll();
+		return data;
 	}
 
 	@Override
-	public void put(Runnable date) {
-		// TODO Auto-generated method stub
-
+	public synchronized void put(T date) {
+		while (buffer.size() == capacity)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		buffer.add(date);
+		notifyAll();
 	}
 
 	@Override
-	public void remove(Runnable date) {
-		// TODO Auto-generated method stub
+	public void remove(T date) {
+		try {
+			int index = buffer.indexOf(date);
+			if (index < 0)
+				return;
+			buffer.remove(index);
+		} catch (Exception e) {
+		}
 
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return buffer.size();
 	}
 
 	@Override
 	public int capacity() {
-		// TODO Auto-generated method stub
-		return 0;
+		return capacity;
 	}
 
 }

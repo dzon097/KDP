@@ -20,7 +20,7 @@ public class BufferServer extends Server {
 
 	@Override
 	public void processRequest(Socket client) {
-		
+		buffer.put(new WorkingThread(0, client, DEFAULTPROTOCOL));
 		
 	}
 
